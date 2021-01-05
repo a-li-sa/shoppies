@@ -93,7 +93,9 @@ export const AppContainer = () => {
           <SearchField textFieldValue={textFieldValue} handleTextFieldChange={handleTextFieldChange} />
         </Layout.Section>
         <Layout.Section oneHalf>
-          <ResultsContainer items={items} title={textFieldValue === '' ? 'Results' : `Results for ${textFieldValue}`} />
+          <ResultsContainer items={items} title={
+            textFieldValue === '' ? 'Search for a movie!' : `Results for "${textFieldValue}"`
+          } />
         </Layout.Section>
         <Layout.Section oneHalf>
           <NominationsContainer items={renderNominations()}/>
