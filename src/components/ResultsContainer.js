@@ -3,7 +3,7 @@ import {Card, List} from '@shopify/polaris';
 
 export const ResultsContainer = (props) => {
   return (
-    <Card title="Results">
+    <Card title={props.title} >
       <Card.Section>
         <List>
           {props.items}

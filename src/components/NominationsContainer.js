@@ -1,14 +1,12 @@
 import React from 'react';
 import { Card, List, } from '@shopify/polaris';
 
-export const NominationsContainer = () => {
+export const NominationsContainer = (props) => {
   return (
     <Card title="Nominations">
       <Card.Section>
         <List>
-          <List.Item>
-            Rambo (1999)
-          </List.Item>
+          {props.items}
         </List>
       </Card.Section>
     </Card>

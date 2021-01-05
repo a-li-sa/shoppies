@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, List } from "@shopify/polaris";
 
-export const ResultsItem = (props) => {
+export const NominationsItem = (props) => {
   return (
     <List.Item>
       {props.string}
       {' '}
-      <Button onClick={props.onClick} disabled={props.disabled}>
-        Nominate
+      <Button onClick={props.onClick}>
+        Remove
       </Button>
     </List.Item>
   )
