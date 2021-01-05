@@ -8,6 +8,7 @@ export const SearchField = (props) => {
       <Card.Section>
         <FormLayout>
           <TextField
+            placeholder="Search"
             label="Movie Title"
             value={props.textFieldValue}
             onChange={props.handleTextFieldChange}

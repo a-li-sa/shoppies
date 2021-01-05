@@ -1,11 +1,12 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {DisplayText, Page, Layout } from "@shopify/polaris";
+import {DisplayText, Page, Layout, List } from "@shopify/polaris";
 import { NominationsContainer, ResultsContainer, SearchField, } from '../components'
 import API from "../utils/API";
 
 export const AppContainer = () => {
-  const [textFieldValue, setTextFieldValue] = useState('ram');
-  const [results, setResults] = useState({});
+  const [textFieldValue, setTextFieldValue] = useState('');
+  const [results, setResults] = useState();
+  const [items, setItems] = useState([]);
 
   const handleTextFieldChange = useCallback(
     (value) => setTextFieldValue(value),
@@ -15,21 +16,36 @@ export const AppContainer = () => {
   const searchMovies = async query => {
     try {
       const res = await API.search(query);
-      setResults(res.data)
-      console.log(res.data)
+      const search = res.data.Search;
+      if (res.data.Error) {
+        setItems(res.data.Error)
+      } else if (search !== undefined) {
+        setResults(search)
+        const itemsArr = [];
+        for (let i = 0; i < 3; i++) {
+          itemsArr.push(<List.Item key={i}>{search[i].Title} ({search[i].Year})</List.Item>)
+        }
+        setItems(itemsArr);
+      } else {
+        setItems([])
+      }
     } catch (e) {
       console.log(e)
     }
   };
 
-  const handleFormSubmit = e => {
-    e.preventDefault();
-    searchMovies(textFieldValue);
-  };
-
   useEffect(() => {
-    searchMovies(textFieldValue);
-  }, [])
+    if (textFieldValue !== '') {
+      const timerId = setTimeout(() => {
+        searchMovies(textFieldValue);
+      }, 300);
+      return () => {
+        clearTimeout(timerId);
+      }
+    } else {
+      setItems([])
+    }
+  }, [textFieldValue])
 
   return (
     <Page>
@@ -41,7 +57,7 @@ export const AppContainer = () => {
           <SearchField textFieldValue={textFieldValue} handleTextFieldChange={handleTextFieldChange} />
         </Layout.Section>
         <Layout.Section oneHalf>
-          <ResultsContainer />
+          <ResultsContainer items={items}/>
         </Layout.Section>
         <Layout.Section oneHalf>
           <NominationsContainer />
