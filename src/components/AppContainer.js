@@ -46,7 +46,10 @@ export const AppContainer = () => {
 
   const renderNominations = () => {
     const itemsArr = [];
-    const savedNominations = JSON.parse(localStorage.getItem("nominations"))
+    let savedNominations = [];
+    if (localStorage.getItem("nominations")) {
+      savedNominations = JSON.parse(localStorage.getItem("nominations"))
+    }
     for (let i = 0; i < savedNominations.length; i++) {
       itemsArr.push(<NominationsItem
         key={i}
