@@ -4,3 +4,4 @@ export * from './NominationsItem';
 export * from './ResultsContainer';
 export * from './ResultsItem';
 export * from './SearchField';
+export * from './ShareContainer'

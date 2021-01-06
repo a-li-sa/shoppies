@@ -1,6 +1,7 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {DisplayText, Page, Layout } from "@shopify/polaris";
-import { NominationsContainer, NominationsItem, ResultsContainer, ResultsItem, SearchField, } from '../components'
+import { DisplayText, Page, Layout } from "@shopify/polaris";
+
+import { NominationsContainer, NominationsItem, ResultsContainer, ResultsItem, SearchField, ShareContainer } from '../components'
 import API from "../utils/API";
 
 export const AppContainer = () => {
@@ -101,7 +102,10 @@ export const AppContainer = () => {
           } />
         </Layout.Section>
         <Layout.Section oneHalf>
-          <NominationsContainer items={renderNominations()}/>
+          <NominationsContainer
+            items={renderNominations()}
+            share={nominations.length > 4 ? <ShareContainer nominations={nominations.join(', ')}/> : ''}
+          />
         </Layout.Section>
       </Layout>
     </Page>
