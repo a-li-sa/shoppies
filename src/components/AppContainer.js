@@ -1,7 +1,7 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import { DisplayText, Page, Layout } from "@shopify/polaris";
+import {Banner, DisplayText, Page, Layout } from "@shopify/polaris";
 
-import { NominationsContainer, NominationsItem, ResultsContainer, ResultsItem, SearchField, ShareContainer } from '../components'
+import { Item, NominationsContainer, ResultsContainer, SearchField, ShareContainer } from '../components'
 import API from "../utils/API";
 
 export const AppContainer = () => {
@@ -24,7 +24,8 @@ export const AppContainer = () => {
         const itemsArr = [];
         for (let i = 0; i < 3; i++) {
           const string = `${search[i].Title} (${search[i].Year})`
-          itemsArr.push(<ResultsItem
+          itemsArr.push(<Item
+            title='Nominate'
             key={i}
             string={string}
             onClick={() => {
@@ -52,7 +53,8 @@ export const AppContainer = () => {
       savedNominations = JSON.parse(localStorage.getItem("nominations"))
     }
     for (let i = 0; i < savedNominations.length; i++) {
-      itemsArr.push(<NominationsItem
+      itemsArr.push(<Item
+        title='Remove'
         key={i}
         string={nominations[i]}
         onClick={() => {
@@ -97,9 +99,13 @@ export const AppContainer = () => {
           <SearchField textFieldValue={textFieldValue} handleTextFieldChange={handleTextFieldChange} />
         </Layout.Section>
         <Layout.Section oneHalf>
-          <ResultsContainer items={items} title={
+          {nominations.length > 4 ? <Banner status="success">
+            <p>
+              You have selected 5 nominees. You are finished!
+            </p>
+          </Banner> : <ResultsContainer items={items} title={
             textFieldValue === '' ? 'Search for a movie!' : `Results for "${textFieldValue}"`
-          } />
+          } />}
         </Layout.Section>
         <Layout.Section oneHalf>
           <NominationsContainer
