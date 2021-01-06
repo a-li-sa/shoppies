@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {Banner, DisplayText, Page, Layout } from "@shopify/polaris";
+import { DisplayText, Layout, Page } from "@shopify/polaris";
 
 import { Item, NominationsContainer, ResultsContainer, SearchField, ShareContainer } from '../components'
 import API from "../utils/API";
@@ -99,18 +99,14 @@ export const AppContainer = () => {
           <SearchField textFieldValue={textFieldValue} handleTextFieldChange={handleTextFieldChange} />
         </Layout.Section>
         <Layout.Section oneHalf>
-          {nominations.length > 4 ? <Banner status="success">
-            <p>
-              You have selected 5 nominees. You are finished!
-            </p>
-          </Banner> : <ResultsContainer items={items} title={
+          {nominations.length > 4 ?
+            <ShareContainer nominations={nominations.join(', ')}/> : <ResultsContainer items={items} title={
             textFieldValue === '' ? 'Search for a movie!' : `Results for "${textFieldValue}"`
           } />}
         </Layout.Section>
         <Layout.Section oneHalf>
           <NominationsContainer
             items={renderNominations()}
-            share={nominations.length > 4 ? <ShareContainer nominations={nominations.join(', ')}/> : ''}
           />
         </Layout.Section>
       </Layout>

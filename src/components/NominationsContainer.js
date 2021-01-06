@@ -9,7 +9,6 @@ export const NominationsContainer = (props) => {
           {props.items}
         </List>
       </Card.Section>
-      {props.share}
     </Card>
   )
 }
